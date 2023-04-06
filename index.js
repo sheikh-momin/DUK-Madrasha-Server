@@ -31,7 +31,7 @@ async function run(){
     });
 
       // Student Mony
-   
+    
 
     app.post('/studentMoney', async (req, res) => {
       const monyInfo = req.body
@@ -56,6 +56,12 @@ async function run(){
     app.delete("/studentMoney", async (req, res) => {
       const query = {};
       const result = await studentMonyCollection.deleteMany(query);
+      res.send(result);
+    });
+
+    app.get("/studentMoney", async (req, res) => {
+      const query = {};
+      const result = await studentMonyCollection.find(query).toArray();
       res.send(result);
     });
 
