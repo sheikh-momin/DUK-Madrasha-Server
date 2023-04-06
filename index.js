@@ -57,6 +57,12 @@ async function run(){
       res.send(result);
     });
 
+    app.delete("/studentMoney", async (req, res) => {
+      const query = {};
+      const result = await studentMonyCollection.deleteMany(query);
+      res.send(result);
+    });
+
 
   }
   finally{
