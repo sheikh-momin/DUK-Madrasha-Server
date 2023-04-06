@@ -21,12 +21,43 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run(){
   try{
     const totalMonyCollection = client.db('dUKMadrasha').collection('totalMoney');
+    const studentMonyCollection = client.db('dUKMadrasha').collection('studentMoney');
 
+    // Total Mony
     app.get("/totalMoney", async (req, res) => {
       const query = {};
       const result = await totalMonyCollection.find(query).toArray();
       res.send(result);
     });
+
+      // Student Mony
+    app.get("/studentMoney", async (req, res) => {
+      const query = {};
+      const result = await studentMonyCollection.find(query).toArray();
+      res.send(result);
+    });
+
+    app.post('/studentMoney', async (req, res) => {
+      const monyInfo = req.body
+      const result = await studentMonyCollection.insertOne(monyInfo)
+      res.send(result)
+    })
+
+    app.get('/studentMoney/:classRoll', async (req, res) => {
+      const classRoll = req.params.classRoll;
+      const query = { classRoll };
+      const service = await studentMonyCollection.find(query).toArray();
+      res.send(service);
+    });
+
+    app.delete("/studentMoney/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await studentMonyCollection.deleteOne(query);
+      res.send(result);
+    });
+
+
   }
   finally{
 
