@@ -44,7 +44,7 @@ async function run(){
     })
 
     app.get('/studentMoney/:classRoll', async (req, res) => {
-      const classRoll = req.params.classRoll;
+      const classRoll = req.body.classRoll;
       const query = { classRoll };
       const service = await studentMonyCollection.findOne(query)
       res.send(service);
