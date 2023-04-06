@@ -31,11 +31,7 @@ async function run(){
     });
 
       // Student Mony
-    app.get("/studentMoney", async (req, res) => {
-      const query = {};
-      const result = await studentMonyCollection.find(query).toArray();
-      res.send(result);
-    });
+   
 
     app.post('/studentMoney', async (req, res) => {
       const monyInfo = req.body
