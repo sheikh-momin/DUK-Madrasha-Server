@@ -47,9 +47,10 @@ async function run(){
       res.send(service);
     });
 
-    app.delete("/studentMoney2/:id", async (req, res) => {
+    app.delete("/studentMoney2/:classRoll", async (req, res) => {
       try {
-        const result = await studentMonyCollection2.deleteOne({ _id: req.params.id });
+        const classRoll = req.params.classRoll;
+        const result = await studentMonyCollection2.deleteOne({ classRoll });
         res.json(result);
       } catch (error) {
         console.error(error);
