@@ -4,7 +4,7 @@ const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 require("dotenv").config();
 const port = process.env.PORT || 5000;
 
-const app = express();
+const app = express.Router();
 
 // Middleware
 app.use(cors(
@@ -51,10 +51,9 @@ async function run(){
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const result = await studentMonyCollection2.deleteOne(query);
-      res.send(result);
+      
+      const result = await studentMonyCollection2.deleteOne({ _id: req.params.id });
+      res.json(result);
     });
 
     app.delete("/studentMoney2", async (req, res) => {
