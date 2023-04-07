@@ -7,11 +7,7 @@ const port = process.env.PORT || 5000;
 const app = express();
 
 // Middleware
-app.use(cors({
-  origin:"*",
-  methods:["GET", "POST","DELETE"],
-  credentials: true,
-}));
+app.use(cors());
 app.use(express.json());
 
 
@@ -26,6 +22,7 @@ async function run(){
   try{
     const totalMonyCollection = client.db('dUKMadrasha').collection('totalMoney');
     const studentMonyCollection = client.db('dUKMadrasha').collection('studentMoney');
+    const studentMonyCollection2 = client.db('dUKMadrasha').collection('studentMoney2');
 
     // Total Mony
     app.get("/totalMoney", async (req, res) => {
@@ -36,35 +33,35 @@ async function run(){
 
     
       // Student Mony
-    app.post('/studentMoney', async (req, res) => {
+    app.post('/studentMoney2', async (req, res) => {
       const monyInfo = req.body
-      const result = await studentMonyCollection.insertOne(monyInfo)
+      const result = await studentMonyCollection2.insertOne(monyInfo)
       res.send(result)
     })
 
-    app.get('/studentMoney/:classRoll', async (req, res) => {
+    app.get('/studentMoney2/:classRoll', async (req, res) => {
       const classRoll = req.params.classRoll;
       const query = { classRoll };
-      const service = await studentMonyCollection.findOne(query);
+      const service = await studentMonyCollection2.findOne(query);
       res.send(service);
     });
 
-    app.delete("/studentMoney/:id", async (req, res) => {
+    app.delete("/studentMoney2/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
-      const result = await studentMonyCollection.deleteOne(query);
+      const result = await studentMonyCollection2.deleteOne(query);
       res.send(result);
     });
 
-    app.delete("/studentMoney", async (req, res) => {
+    app.delete("/studentMoney2", async (req, res) => {
       const query = {};
-      const result = await studentMonyCollection.deleteMany(query);
+      const result = await studentMonyCollection2.deleteMany(query);
       res.send(result);
     });
 
-    app.get("/studentMoney", async (req, res) => {
+    app.get("/studentMoney2", async (req, res) => {
       const query = {};
-      const result = await studentMonyCollection.find(query).toArray();
+      const result = await studentMonyCollection2.find(query).toArray();
       res.send(result);
     });
 
