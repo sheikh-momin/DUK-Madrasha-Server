@@ -8,9 +8,6 @@ const app = express();
 
 // Middleware
 app.use(cors(
-  {
-    origin:"http://localhost:3000"
-  }
 ));
 app.use(express.json());
 
@@ -51,6 +48,9 @@ async function run(){
     });
 
     app.delete("/studentMoney2/:id", async (req, res) => {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
       const id = req.params.id;
       const query = { _id: ObjectId(id) };
       const result = await studentMonyCollection2.deleteOne(query);
