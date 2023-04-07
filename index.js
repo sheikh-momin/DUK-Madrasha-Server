@@ -48,12 +48,15 @@ async function run(){
     });
 
     app.delete("/studentMoney2/:id", async (req, res) => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+      try {
+        const result = await studentMonyCollection2.deleteOne({ _id: req.params.id });
+        res.json(result);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
       
-      const result = await studentMonyCollection2.deleteOne({ _id: req.params.id });
-      res.json(result);
+      
     });
 
     app.delete("/studentMoney2", async (req, res) => {
