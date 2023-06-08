@@ -47,10 +47,11 @@ async function run(){
       res.send(service);
     });
 
-    app.delete("/studentMoney2/:classRoll", async (req, res) => {
+    app.delete("/studentMoney2/:id", async (req, res) => {
       try {
-        const classRoll = req.params.classRoll;
-        const result = await studentMonyCollection2.deleteOne({ classRoll });
+        const id = req.params.id;
+        const filter = { _id: ObjectId(id) };
+        const result = await studentMonyCollection2.deleteOne(filter);
         res.json(result);
       } catch (error) {
         console.error(error);
@@ -60,11 +61,11 @@ async function run(){
       
     });
 
-    app.delete("/studentMoney2", async (req, res) => {
-      const query = {};
-      const result = await studentMonyCollection2.deleteMany(query);
-      res.send(result);
-    });
+    // app.delete("/studentMoney2", async (req, res) => {
+    //   const query = {};
+    //   const result = await studentMonyCollection2.deleteMany(query);
+    //   res.send(result);
+    // });
 
     app.get("/studentMoney2", async (req, res) => {
       const query = {};
