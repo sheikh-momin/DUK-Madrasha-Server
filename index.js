@@ -48,15 +48,10 @@ async function run(){
     });
 
     app.delete("/studentMoney2/:id", async (req, res) => {
-      try {
         const id = req.params.id;
         const filter = { _id: ObjectId(id) };
         const result = await studentMonyCollection2.deleteOne(filter);
         res.json(result);
-      } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
-      }
       
       
     });
